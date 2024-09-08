@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Typography, Box, Paper, Grid, TextField, Button, CircularProgress, Alert } from '@mui/material';
+import { Typography, Box, Paper, Grid, TextField, Button, CircularProgress, Alert } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import backgroundImage from './unibitLogo.jpg'; // Импортиране на изображението за фон
 
 const UserInfo = () => {
     const [userInfo, setUserInfo] = useState(null);
@@ -115,11 +116,23 @@ const UserInfo = () => {
     };
 
     return (
-        <Container maxWidth="md" sx={{ paddingTop: '2rem' }}>
-            <Typography variant="h4" gutterBottom align="center">
-                User Information
-            </Typography>
-            <Paper elevation={3} sx={{ padding: '2rem', backgroundColor: '#f5f5f5' }}>
+        <Box
+            sx={{
+                height: '100vh',
+                width: '100vw',
+                backgroundImage: `url(${backgroundImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '2rem',
+            }}
+        >
+            <Paper elevation={3} sx={{ padding: '2rem', backgroundColor: 'rgba(255, 255, 255, 0.8)', width: '100%', maxWidth: '1200px' }}>
+                <Typography variant="h4" gutterBottom align="center">
+                    User Information
+                </Typography>
                 {loading ? (
                     <Box display="flex" justifyContent="center" alignItems="center" height="200px">
                         <CircularProgress />
@@ -248,7 +261,7 @@ const UserInfo = () => {
                     <Typography variant="body1" align="center">No user information available.</Typography>
                 )}
             </Paper>
-        </Container>
+        </Box>
     );
 };
 

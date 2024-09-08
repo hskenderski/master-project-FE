@@ -18,7 +18,7 @@ import {
     IconButton
 } from '@mui/material';
 import { Add, Remove } from '@mui/icons-material';
-import backgroundImage from './Unibit-logo-1280x690-1.jpg';
+import backgroundImage from './unibitLogo.jpg';
 import { authFetch, logout } from './authFetch';
 import { useNavigate } from 'react-router-dom';
 import dayjs from 'dayjs';
@@ -176,7 +176,7 @@ const BookSearch = () => {
         >
             <Box
                 sx={{
-                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    backgroundColor: 'transparent)',
                     padding: '2rem',
                     borderRadius: '8px',
                     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)',
@@ -298,7 +298,7 @@ const BookSearch = () => {
                     marginTop: '2rem',
                     maxWidth: '800px',
                     width: '100%',
-                    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+                    backgroundColor: 'transparent',
                     borderRadius: '8px'
                 }}>
                     <Table sx={{ minWidth: 650 }}>
@@ -332,12 +332,12 @@ const BookSearch = () => {
                         <TableBody>
                             {sortedResults().map((book) => (
                                 <TableRow key={book.isbn} onClick={() => openModal(book)} style={{ cursor: 'pointer' }}>
-                                    <TableCell>{book.title}</TableCell>
-                                    <TableCell>{book.author}</TableCell>
-                                    <TableCell>{book.isbn}</TableCell>
-                                    <TableCell>{book.price}</TableCell>
-                                    <TableCell>{book.stock}</TableCell>
-                                    <TableCell>{book.stockAvailable}</TableCell>
+                                    <TableCell sx={{ color: '#fff',fontWeight: 'bold' }}>{book.title}</TableCell>
+                                    <TableCell sx={{ color: '#fff',fontWeight: 'bold' }}>{book.author}</TableCell>
+                                    <TableCell sx={{ color: '#fff',fontWeight: 'bold' }}>{book.isbn}</TableCell>
+                                    <TableCell sx={{ color: '#fff',fontWeight: 'bold' }}>{book.price}</TableCell>
+                                    <TableCell sx={{ color: '#fff',fontWeight: 'bold' }}>{book.stock}</TableCell>
+                                    <TableCell sx={{ color: '#fff',fontWeight: 'bold' }}>{book.stockAvailable}</TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>

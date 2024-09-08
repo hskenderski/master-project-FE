@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Typography, Grid, Card, CardContent, CardActions, Button, TextField, Checkbox, FormControlLabel } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import backgroundImage from './unibitLogo.jpg'; // Импортиране на изображението за фон
 
 const MyComments = () => {
     const [comments, setComments] = useState([]);
@@ -97,7 +98,6 @@ const MyComments = () => {
             // След успешното запазване, нулираме състоянието и обновяваме списъка с коментари
             setEditingCommentId(null);
             setNewCommentText('');
-            // Може да презаредим коментарите или да навигираме към началната страница
             navigate('/');
         } catch (error) {
             console.error('Error saving comment:', error);
@@ -110,7 +110,20 @@ const MyComments = () => {
         : comments.filter(comment => comment.comment !== null); // Показваме само тези с непразни коментари
 
     return (
-        <Container sx={{ marginTop: '2rem' }}>
+        <Container
+            sx={{
+                minHeight: '100vh', // Минимална височина - целия екран
+                backgroundImage: `url(${backgroundImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: '2rem',
+            }}
+            maxWidth={false} // За да покрие целия екран по ширина
+        >
             <Typography variant="h4" gutterBottom align="center" color="primary">
                 My Comments
             </Typography>
@@ -134,9 +147,10 @@ const MyComments = () => {
                     />
                 }
                 label="Show empty comments"
+                sx={{ marginBottom: '2rem' }}
             />
 
-            <Grid container spacing={4}>
+            <Grid container spacing={4} justifyContent="center"  >
                 {filteredComments.length > 0 ? (
                     filteredComments.map((comment, index) => (
                         <Grid item xs={12} sm={6} md={4} key={index}>
