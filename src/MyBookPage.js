@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Container, Typography, Grid, Card, CardContent, CardMedia, Button, TextField } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { authFetch } from './authFetch';
-import book1 from './vlastelinyt-na-prystenite-pylno-izdanie.jpg';
+import loadImage from './imageImports'; // Импортиране на функцията за зареждане на изображения
 
 const MyBooksPage = () => {
     const [books, setBooks] = useState([]);
@@ -10,6 +10,7 @@ const MyBooksPage = () => {
     const [comment, setComment] = useState('');
     const [selectedRentId, setSelectedRentId] = useState(null);
     const [isCommenting, setIsCommenting] = useState(false);
+    const [imageMap, setImageMap] = useState(new Map()); // Съхранение на заредените изображения
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -23,6 +24,14 @@ const MyBooksPage = () => {
                     }
                 });
                 setBooks(data);
+
+                // Зареждане на изображенията за всички книги
+                const map = new Map();
+                for (const book of data) {
+                    const image = await loadImage(book.id);
+                    map.set(book.id, image);
+                }
+                setImageMap(map);
             } catch (error) {
                 setError(`Error: ${error.message}`);
             }
@@ -39,12 +48,11 @@ const MyBooksPage = () => {
         setSelectedRentId(rentId);
         setIsCommenting(true);
         try {
-            // Извличане на коментара за избраната книга
             const bookData = books.find(book => book.rentId === rentId);
             if (bookData && bookData.comment) {
                 setComment(bookData.comment);
             } else {
-                setComment(''); // Ако няма коментар, уверете се, че полето е празно
+                setComment('');
             }
         } catch (error) {
             setError(`Error: ${error.message}`);
@@ -76,7 +84,7 @@ const MyBooksPage = () => {
             setSelectedRentId(null);
             setIsCommenting(false);
         } catch (error) {
-            handleHomeClick()
+            handleHomeClick();
         }
     };
 
@@ -102,12 +110,12 @@ const MyBooksPage = () => {
             {error && <Typography color="error" align="center">{error}</Typography>}
             <Grid container spacing={4}>
                 {books.map((book) => (
-                    <Grid item xs={12} sm={6} md={4} key={book.rentId}> {/* Use rentId here as key */}
+                    <Grid item xs={12} sm={6} md={4} key={book.rentId}>
                         <Card sx={{ display: 'flex', flexDirection: 'column', height: '100%' }}>
                             <CardMedia
                                 component="img"
                                 height="200"
-                                image={book1} // Placeholder image
+                                image={imageMap.get(book.id) || '/path/to/placeholder/image'} // Извличане на изображение от Map
                                 alt={book.title}
                             />
                             <CardContent>
@@ -141,7 +149,7 @@ const MyBooksPage = () => {
                                 <Button
                                     variant="contained"
                                     color="primary"
-                                    onClick={() => handleAddCommentClick(book.rentId)} // Use rentId here
+                                    onClick={() => handleAddCommentClick(book.rentId)}
                                     sx={{ marginTop: '1rem' }}
                                 >
                                     Add Comment
