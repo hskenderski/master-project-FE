@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, TextField, Button, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import backgroundImage from './unibitLogo.jpg';
 
 const AddBook = () => {
     const [book, setBook] = useState({
@@ -12,9 +13,25 @@ const AddBook = () => {
         stockAvailable: '',
         publishDate: ''
     });
-    const [imageFile, setImageFile] = useState(null); // Ново състояние за файла
+    const [imageFile, setImageFile] = useState(null);
     const [error, setError] = useState('');
     const navigate = useNavigate();
+
+    useEffect(() => {
+        // Настройване на фона на тялото
+        document.body.style.backgroundImage = `url(${backgroundImage})`;
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center';
+        document.body.style.backgroundAttachment = 'fixed'; // За да не се движи фона при скролиране
+
+        // Почистване на стила при размонтиране на компонента
+        return () => {
+            document.body.style.backgroundImage = '';
+            document.body.style.backgroundSize = '';
+            document.body.style.backgroundPosition = '';
+            document.body.style.backgroundAttachment = '';
+        };
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -22,7 +39,7 @@ const AddBook = () => {
     };
 
     const handleFileChange = (e) => {
-        setImageFile(e.target.files[0]); // Запазване на избрания файл в състоянието
+        setImageFile(e.target.files[0]);
     };
 
     const handleSubmit = async (e) => {
@@ -39,7 +56,6 @@ const AddBook = () => {
         try {
             const token = localStorage.getItem('token');
 
-            // Първо добавяме книгата
             const response = await fetch('http://localhost:8080/svc/library/book', {
                 method: 'POST',
                 headers: {
@@ -53,20 +69,18 @@ const AddBook = () => {
                 throw new Error('Failed to add book');
             }
 
-            // Очакваме отговорът да бъде просто текст с ID на книгата
             const bookIdText = await response.text();
-            const bookId = parseInt(bookIdText); // Преобразуваме текста в число
+            const bookId = parseInt(bookIdText);
 
             if (imageFile && bookId) {
-                // Ако има качен файл, изпращаме го към сървиса за файлове
                 const formData = new FormData();
-                formData.append('file', imageFile); // Прикачване на файла
-                formData.append('bookId', bookId);  // Прикачване на bookId
+                formData.append('file', imageFile);
+                formData.append('bookId', bookId);
 
                 const fileResponse = await fetch('http://localhost:8080/svc/library/file', {
                     method: 'POST',
                     headers: {
-                        'Authorization': `Bearer ${token}`, // НЕ задаваме 'Content-Type'
+                        'Authorization': `Bearer ${token}`,
                     },
                     body: formData
                 });
@@ -79,7 +93,7 @@ const AddBook = () => {
             }
 
             setError('');
-            navigate('/'); // Пренасочване към началната страница след успешно добавяне на книга
+            navigate('/');
         } catch (error) {
             setError(`Error: ${error.message}`);
         }
@@ -90,8 +104,12 @@ const AddBook = () => {
     };
 
     return (
-        <Container maxWidth="sm" sx={{ paddingTop: '2rem' }}>
-            <Typography variant="h4" gutterBottom align="center">
+        <Container maxWidth="sm" sx={{
+            paddingTop: '2rem',
+            minHeight: '100vh',
+            color: '#fff'
+        }}>
+            <Typography variant="h4" gutterBottom align="center" sx={{ fontWeight: 'bold', color: '#fff' }}>
                 Add a New Book
             </Typography>
             <form onSubmit={handleSubmit}>
@@ -103,6 +121,13 @@ const AddBook = () => {
                     fullWidth
                     margin="normal"
                     required
+                    sx={{
+                        '& .MuiInputLabel-root': { color: '#fff', fontWeight: 'bold' },
+                        '& .MuiOutlinedInput-root': {
+                            '& fieldset': { borderColor: '#aaa' },
+                            '& input': { color: '#fff' }
+                        }
+                    }}
                 />
                 <TextField
                     label="Author"
@@ -112,6 +137,13 @@ const AddBook = () => {
                     fullWidth
                     margin="normal"
                     required
+                    sx={{
+                        '& .MuiInputLabel-root': { color: '#fff', fontWeight: 'bold' },
+                        '& .MuiOutlinedInput-root': {
+                            '& fieldset': { borderColor: '#aaa' },
+                            '& input': { color: '#fff' }
+                        }
+                    }}
                 />
                 <TextField
                     label="ISBN"
@@ -121,6 +153,13 @@ const AddBook = () => {
                     fullWidth
                     margin="normal"
                     required
+                    sx={{
+                        '& .MuiInputLabel-root': { color: '#fff', fontWeight: 'bold' },
+                        '& .MuiOutlinedInput-root': {
+                            '& fieldset': { borderColor: '#aaa' },
+                            '& input': { color: '#fff' }
+                        }
+                    }}
                 />
                 <TextField
                     label="Price"
@@ -131,6 +170,13 @@ const AddBook = () => {
                     fullWidth
                     margin="normal"
                     required
+                    sx={{
+                        '& .MuiInputLabel-root': { color: '#fff', fontWeight: 'bold' },
+                        '& .MuiOutlinedInput-root': {
+                            '& fieldset': { borderColor: '#aaa' },
+                            '& input': { color: '#fff' }
+                        }
+                    }}
                 />
                 <TextField
                     label="Stock"
@@ -141,6 +187,13 @@ const AddBook = () => {
                     fullWidth
                     margin="normal"
                     required
+                    sx={{
+                        '& .MuiInputLabel-root': { color: '#fff', fontWeight: 'bold' },
+                        '& .MuiOutlinedInput-root': {
+                            '& fieldset': { borderColor: '#aaa' },
+                            '& input': { color: '#fff' }
+                        }
+                    }}
                 />
                 <TextField
                     label="Stock Available"
@@ -151,6 +204,13 @@ const AddBook = () => {
                     fullWidth
                     margin="normal"
                     required
+                    sx={{
+                        '& .MuiInputLabel-root': { color: '#fff', fontWeight: 'bold' },
+                        '& .MuiOutlinedInput-root': {
+                            '& fieldset': { borderColor: '#aaa' },
+                            '& input': { color: '#fff' }
+                        }
+                    }}
                 />
                 <TextField
                     label="Publish Date"
@@ -160,18 +220,22 @@ const AddBook = () => {
                     onChange={handleChange}
                     fullWidth
                     margin="normal"
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
+                    InputLabelProps={{ shrink: true }}
                     required
+                    sx={{
+                        '& .MuiInputLabel-root': { color: '#fff', fontWeight: 'bold' },
+                        '& .MuiOutlinedInput-root': {
+                            '& fieldset': { borderColor: '#aaa' },
+                            '& input': { color: '#fff' }
+                        }
+                    }}
                 />
 
-                {/* Input за избиране на файл */}
                 <input
                     type="file"
                     accept=".jpeg, .jpg"
                     onChange={handleFileChange}
-                    style={{ marginTop: '20px' }}
+                    style={{ marginTop: '20px', color: '#fff' }}
                 />
 
                 <Button type="submit" variant="contained" color="primary" fullWidth sx={{ marginTop: '20px' }}>

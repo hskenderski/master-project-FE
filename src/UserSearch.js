@@ -21,6 +21,7 @@ import {
     Box
 } from '@mui/material';
 import { authFetch } from './authFetch';
+import backgroundImage from './unibitLogo.jpg';
 
 const UserSearch = () => {
     const navigate = useNavigate();
@@ -144,139 +145,197 @@ const UserSearch = () => {
     };
 
     return (
-        <Container>
-            <Button
-                variant="contained"
-                color="secondary"
-                onClick={handleHomeClick}
-                style={{ marginBottom: '20px' }}
+        <Box
+            sx={{
+                backgroundImage: `url(${backgroundImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                minHeight: '100vh',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                color: 'white'
+            }}
+        >
+            <Container
+                sx={{
+                    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Полупрозрачен фон
+                    padding: '20px',
+                    borderRadius: '8px',
+                    marginTop: '20px',
+                    maxWidth: 'md',
+                    width: '100%',
+                }}
             >
-                Home
-            </Button>
-            <Typography variant="h4" gutterBottom>
-                Search Users
-            </Typography>
-            <form onSubmit={handleSubmit}>
-                <Grid container spacing={3}>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            label="First Name"
-                            name="firstName"
-                            value={criteria.firstName}
-                            onChange={handleChange}
-                            fullWidth
-                            variant="outlined"
-                            color="primary"
-                        />
+                <Button
+                    variant="contained"
+                    color="secondary"
+                    onClick={handleHomeClick}
+                    sx={{ marginBottom: '20px' }}
+                >
+                    Home
+                </Button>
+                <Typography variant="h4" gutterBottom>
+                    Search Users
+                </Typography>
+                <form onSubmit={handleSubmit}>
+                    <Grid container spacing={3}>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                label="First Name"
+                                name="firstName"
+                                value={criteria.firstName}
+                                onChange={handleChange}
+                                fullWidth
+                                variant="outlined"
+                                color="primary"
+                                InputLabelProps={{
+                                    style: { color: 'white' }
+                                }}
+                                InputProps={{
+                                    style: { color: 'white' },
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                label="Second Name"
+                                name="secondName"
+                                value={criteria.secondName}
+                                onChange={handleChange}
+                                fullWidth
+                                variant="outlined"
+                                color="primary"
+                                InputLabelProps={{
+                                    style: { color: 'white' }
+                                }}
+                                InputProps={{
+                                    style: { color: 'white' },
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                label="Third Name"
+                                name="thirdName"
+                                value={criteria.thirdName}
+                                onChange={handleChange}
+                                fullWidth
+                                variant="outlined"
+                                color="primary"
+                                InputLabelProps={{
+                                    style: { color: 'white' }
+                                }}
+                                InputProps={{
+                                    style: { color: 'white' },
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                label="Email"
+                                name="email"
+                                value={criteria.email}
+                                onChange={handleChange}
+                                fullWidth
+                                variant="outlined"
+                                color="primary"
+                                InputLabelProps={{
+                                    style: { color: 'white' }
+                                }}
+                                InputProps={{
+                                    style: { color: 'white' },
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                label="Main Address"
+                                name="mainAddress"
+                                value={criteria.mainAddress}
+                                onChange={handleChange}
+                                fullWidth
+                                variant="outlined"
+                                color="primary"
+                                InputLabelProps={{
+                                    style: { color: 'white' }
+                                }}
+                                InputProps={{
+                                    style: { color: 'white' },
+                                }}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <Button type="submit" variant="contained" color="primary">
+                                Search
+                            </Button>
+                        </Grid>
                     </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            label="Second Name"
-                            name="secondName"
-                            value={criteria.secondName}
-                            onChange={handleChange}
-                            fullWidth
-                            variant="outlined"
-                            color="primary"
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            label="Third Name"
-                            name="thirdName"
-                            value={criteria.thirdName}
-                            onChange={handleChange}
-                            fullWidth
-                            variant="outlined"
-                            color="primary"
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            label="Email"
-                            name="email"
-                            value={criteria.email}
-                            onChange={handleChange}
-                            fullWidth
-                            variant="outlined"
-                            color="primary"
-                        />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                        <TextField
-                            label="Main Address"
-                            name="mainAddress"
-                            value={criteria.mainAddress}
-                            onChange={handleChange}
-                            fullWidth
-                            variant="outlined"
-                            color="primary"
-                        />
-                    </Grid>
-                    <Grid item xs={12}>
-                        <Button type="submit" variant="contained" color="primary">
-                            Search
-                        </Button>
-                    </Grid>
-                </Grid>
-            </form>
-            {error && <Alert severity="error" style={{ marginTop: '20px' }}>{error}</Alert>}
-            {results.length > 0 && (
-                <TableContainer component={Paper} sx={{ marginTop: '2rem' }}>
-                    <Table>
-                        <TableHead>
-                            <TableRow>
-                                <TableCell>First Name</TableCell>
-                                <TableCell>Second Name</TableCell>
-                                <TableCell>Third Name</TableCell>
-                                <TableCell>Email</TableCell>
-                                <TableCell>Main Address</TableCell>
-                                <TableCell>Actions</TableCell>
-                            </TableRow>
-                        </TableHead>
-                        <TableBody>
-                            {results.map((user) => (
-                                <TableRow key={user.id}>
-                                    <TableCell>{user.firstName}</TableCell>
-                                    <TableCell>{user.secondName}</TableCell>
-                                    <TableCell>{user.thirdName}</TableCell>
-                                    <TableCell>{user.email}</TableCell>
-                                    <TableCell>{user.mainAddress}</TableCell>
-                                    <TableCell>
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={() => handleRowClick(user.userId)}
-                                        >
-                                            View Books
-                                        </Button>
-                                        <Button
-                                            variant="contained"
-                                            color="secondary"
-                                            onClick={() => handleViewComments(user.userId)}
-                                            style={{ marginLeft: '10px' }}
-                                        >
-                                            View Comments
-                                        </Button>
-                                    </TableCell>
+                </form>
+                {error && <Alert severity="error" sx={{ marginTop: '20px' }}>{error}</Alert>}
+                {results.length > 0 && (
+                    <TableContainer component={Paper} sx={{ marginTop: '2rem', backgroundColor: 'rgba(0, 0, 0, 0.7)' }}>
+                        <Table>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell sx={{ color: 'white' }}>First Name</TableCell>
+                                    <TableCell sx={{ color: 'white' }}>Second Name</TableCell>
+                                    <TableCell sx={{ color: 'white' }}>Third Name</TableCell>
+                                    <TableCell sx={{ color: 'white' }}>Email</TableCell>
+                                    <TableCell sx={{ color: 'white' }}>Main Address</TableCell>
+                                    <TableCell sx={{ color: 'white' }}>Actions</TableCell>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-                </TableContainer>
-            )}
+                            </TableHead>
+                            <TableBody>
+                                {results.map((user) => (
+                                    <TableRow key={user.id}>
+                                        <TableCell sx={{ color: 'white' }}>{user.firstName}</TableCell>
+                                        <TableCell sx={{ color: 'white' }}>{user.secondName}</TableCell>
+                                        <TableCell sx={{ color: 'white' }}>{user.thirdName}</TableCell>
+                                        <TableCell sx={{ color: 'white' }}>{user.email}</TableCell>
+                                        <TableCell sx={{ color: 'white' }}>{user.mainAddress}</TableCell>
+                                        <TableCell>
+                                            <Button
+                                                variant="contained"
+                                                color="primary"
+                                                onClick={() => handleRowClick(user.userId)}
+                                            >
+                                                View Books
+                                            </Button>
+                                            <Button
+                                                variant="contained"
+                                                color="secondary"
+                                                onClick={() => handleViewComments(user.userId)}
+                                                sx={{ marginLeft: '10px' }}
+                                            >
+                                                View Comments
+                                            </Button>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                )}
+            </Container>
 
             <Dialog
                 open={openModal}
                 onClose={handleCloseModal}
                 fullWidth
                 maxWidth="md"
+                sx={{
+                    '& .MuiDialog-paper': {
+                        backgroundColor: 'rgba(0, 0, 0, 0.7)', // Прозрачен фон на модала
+                        color: 'white', // Бял текст в модала
+                    },
+                }}
             >
                 <DialogTitle>Book Details</DialogTitle>
                 <DialogContent>
                     {selectedBooks.length > 0 ? (
                         selectedBooks.map((book) => (
-                            <Box key={book.id} onClick={() => handleBookRowClick(book)} style={{ cursor: 'pointer', marginBottom: '1rem' }}>
+                            <Box key={book.id} onClick={() => handleBookRowClick(book)} sx={{ cursor: 'pointer', marginBottom: '1rem' }}>
                                 <Typography variant="h6">{book.title}</Typography>
                                 <Typography>Author: {book.author}</Typography>
                             </Box>
@@ -297,6 +356,12 @@ const UserSearch = () => {
                 onClose={handleCloseBookModal}
                 fullWidth
                 maxWidth="sm"
+                sx={{
+                    '& .MuiDialog-paper': {
+                        backgroundColor: 'rgba(0, 0, 0, 0.7)', // Прозрачен фон на модала
+                        color: 'white', // Бял текст в модала
+                    },
+                }}
             >
                 <DialogTitle>Book Information</DialogTitle>
                 <DialogContent>
@@ -333,12 +398,18 @@ const UserSearch = () => {
                 onClose={handleCloseCommentsModal}
                 fullWidth
                 maxWidth="md"
+                sx={{
+                    '& .MuiDialog-paper': {
+                        backgroundColor: 'rgba(0, 0, 0, 0.7)', // Прозрачен фон на модала
+                        color: 'white', // Бял текст в модала
+                    },
+                }}
             >
                 <DialogTitle>User Comments</DialogTitle>
                 <DialogContent>
                     {comments.length > 0 ? (
                         comments.map((comment, index) => (
-                            <Box key={index} style={{ marginBottom: '1rem' }}>
+                            <Box key={index} sx={{ marginBottom: '1rem' }}>
                                 <Typography variant="h6">Book Title: {comment.bookTitle}</Typography>
                                 <Typography>Comment: {comment.comment}</Typography>
                             </Box>
@@ -353,7 +424,7 @@ const UserSearch = () => {
                     </Button>
                 </DialogActions>
             </Dialog>
-        </Container>
+        </Box>
     );
 };
 

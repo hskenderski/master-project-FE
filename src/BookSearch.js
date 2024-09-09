@@ -176,7 +176,7 @@ const BookSearch = () => {
         >
             <Box
                 sx={{
-                    backgroundColor: 'transparent)',
+                    backgroundColor: 'transparent',
                     padding: '2rem',
                     borderRadius: '8px',
                     boxShadow: '0 4px 8px rgba(0, 0, 0, 0.5)',
@@ -312,32 +312,31 @@ const BookSearch = () => {
                                            onClick={() => requestSort('author')}>
                                     Author {sortConfig.key === 'author' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
                                 </TableCell>
-                                <TableCell sx={{ color: '#fff', fontWeight: 'bold' }} onClick={() => requestSort('isbn')}>
+                                <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}
+                                           onClick={() => requestSort('isbn')}>
                                     ISBN {sortConfig.key === 'isbn' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
                                 </TableCell>
                                 <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}
                                            onClick={() => requestSort('price')}>
                                     Price {sortConfig.key === 'price' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
                                 </TableCell>
-                                <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}
-                                           onClick={() => requestSort('stock')}>
-                                    Stock {sortConfig.key === 'stock' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
-                                </TableCell>
-                                <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}
-                                           onClick={() => requestSort('stockAvailable')}>
-                                    Stock Available {sortConfig.key === 'stockAvailable' ? (sortConfig.direction === 'asc' ? '▲' : '▼') : ''}
+                                <TableCell sx={{ color: '#fff', fontWeight: 'bold' }}>
+                                    Actions
                                 </TableCell>
                             </TableRow>
                         </TableHead>
                         <TableBody>
                             {sortedResults().map((book) => (
-                                <TableRow key={book.isbn} onClick={() => openModal(book)} style={{ cursor: 'pointer' }}>
-                                    <TableCell sx={{ color: '#fff',fontWeight: 'bold' }}>{book.title}</TableCell>
-                                    <TableCell sx={{ color: '#fff',fontWeight: 'bold' }}>{book.author}</TableCell>
-                                    <TableCell sx={{ color: '#fff',fontWeight: 'bold' }}>{book.isbn}</TableCell>
-                                    <TableCell sx={{ color: '#fff',fontWeight: 'bold' }}>{book.price}</TableCell>
-                                    <TableCell sx={{ color: '#fff',fontWeight: 'bold' }}>{book.stock}</TableCell>
-                                    <TableCell sx={{ color: '#fff',fontWeight: 'bold' }}>{book.stockAvailable}</TableCell>
+                                <TableRow key={book.id}>
+                                    <TableCell sx={{ color: '#fff' }}>{book.title}</TableCell>
+                                    <TableCell sx={{ color: '#fff' }}>{book.author}</TableCell>
+                                    <TableCell sx={{ color: '#fff' }}>{book.isbn}</TableCell>
+                                    <TableCell sx={{ color: '#fff' }}>{book.price}</TableCell>
+                                    <TableCell sx={{ color: '#fff' }}>
+                                        <Button onClick={() => openModal(book)} variant="contained" color="primary">
+                                            Adjust Stock
+                                        </Button>
+                                    </TableCell>
                                 </TableRow>
                             ))}
                         </TableBody>
@@ -353,21 +352,27 @@ const BookSearch = () => {
                     ariaHideApp={false}
                     style={{
                         overlay: { backgroundColor: 'rgba(0, 0, 0, 0.7)' },
-                        content: { color: 'black', padding: '20px' },
+                        content: {
+                            backgroundColor: 'transparent',
+                            border: 'none',
+                            color: '#fff',
+                            padding: '20px',
+                            fontWeight: 'bold',
+                        },
                     }}
                 >
-                    <Box>
-                        <Typography variant="h6" gutterBottom>
+                    <Box sx={{ color: '#fff', fontWeight: 'bold' }}>
+                        <Typography variant="h6" gutterBottom sx={{ color: '#fff', fontWeight: 'bold' }}>
                             Adjust Stock for {selectedBook.title}
                         </Typography>
-                        <Typography variant="body1" gutterBottom>
+                        <Typography variant="body1" gutterBottom sx={{ color: '#fff', fontWeight: 'bold' }}>
                             Current Stock: {selectedBook.stock}
                         </Typography>
-                        <Typography variant="body1" gutterBottom>
+                        <Typography variant="body1" gutterBottom sx={{ color: '#fff', fontWeight: 'bold' }}>
                             Stock Available: {selectedBook.stockAvailable}
                         </Typography>
                         <Box sx={{ display: 'flex', alignItems: 'center', marginBottom: '1rem' }}>
-                            <IconButton onClick={() => handleQuantityChange(-1)} disabled={quantity <= 0}>
+                            <IconButton onClick={() => handleQuantityChange(-1)} disabled={quantity <= 0} sx={{ color: '#fff' }}>
                                 <Remove />
                             </IconButton>
                             <TextField
@@ -375,13 +380,25 @@ const BookSearch = () => {
                                 value={quantity}
                                 onChange={(e) => setQuantity(Number(e.target.value))}
                                 inputProps={{ min: 0 }}
-                                sx={{ width: '80px', textAlign: 'center' }}
+                                sx={{
+                                    width: '80px',
+                                    textAlign: 'center',
+                                    color: '#fff',
+                                    '& .MuiOutlinedInput-root': {
+                                        '& fieldset': {
+                                            borderColor: '#fff',
+                                        },
+                                    },
+                                    '& .MuiInputBase-input': {
+                                        color: '#fff', // Color for the input text
+                                    },
+                                }}
                             />
-                            <IconButton onClick={() => handleQuantityChange(1)}>
+                            <IconButton onClick={() => handleQuantityChange(1)} sx={{ color: '#fff' }}>
                                 <Add />
                             </IconButton>
                         </Box>
-                        <Button onClick={() => { handleAddQuantity(); closeModal(); }} variant="contained" color="primary">
+                        <Button onClick={handleAddQuantity} variant="contained" color="primary">
                             Add Quantity
                         </Button>
                         <TextField
@@ -392,7 +409,20 @@ const BookSearch = () => {
                             fullWidth
                             variant="outlined"
                             color="primary"
-                            sx={{ marginTop: '1rem' }}
+                            sx={{
+                                marginTop: '1rem',
+                                '& .MuiOutlinedInput-root': {
+                                    '& fieldset': {
+                                        borderColor: '#b8b8b8', // Background color for the text field
+                                    },
+                                },
+                                '& .MuiInputLabel-root': {
+                                    color: '#b8b8b8', // Color of the label
+                                },
+                                '& .MuiInputBase-input': {
+                                    color: '#b8b8b8', // Color of the input text
+                                },
+                            }}
                         />
                         <Button onClick={handleRentBook} variant="contained" color="primary" sx={{ marginTop: '1rem' }}>
                             Rent Book
