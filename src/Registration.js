@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, TextField, Button, Typography, Alert, Box, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import backgroundImage from './unibitLogo.jpg';
 
 const Registration = () => {
     const [user, setUser] = useState({
@@ -16,6 +17,22 @@ const Registration = () => {
     });
     const [error, setError] = useState('');
     const navigate = useNavigate();
+
+    useEffect(() => {
+        // Настройваме фоновото изображение за тялото на документа
+        document.body.style.backgroundImage = `url(${backgroundImage})`;
+        document.body.style.backgroundSize = 'cover';
+        document.body.style.backgroundPosition = 'center';
+        document.body.style.backgroundAttachment = 'fixed'; // За да не се движи фона при скролиране
+
+        // Почистване на стила при размонтиране на компонента
+        return () => {
+            document.body.style.backgroundImage = '';
+            document.body.style.backgroundSize = '';
+            document.body.style.backgroundPosition = '';
+            document.body.style.backgroundAttachment = '';
+        };
+    }, []);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -93,6 +110,25 @@ const Registration = () => {
                         onChange={handleChange}
                         fullWidth
                         margin="normal"
+                        InputProps={{
+                            style: { color: 'white', fontWeight: 'bold' },
+                        }}
+                        InputLabelProps={{
+                            style: { color: 'white', fontWeight: 'bold' },
+                        }}
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: 'white',
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: 'white',
+                                },
+                                '&.Mui-focused fieldset': {
+                                    borderColor: 'white',
+                                },
+                            },
+                        }}
                     />
                     <TextField
                         label="Second Name"
@@ -101,6 +137,25 @@ const Registration = () => {
                         onChange={handleChange}
                         fullWidth
                         margin="normal"
+                        InputProps={{
+                            style: { color: 'white', fontWeight: 'bold' },
+                        }}
+                        InputLabelProps={{
+                            style: { color: 'white', fontWeight: 'bold' },
+                        }}
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: 'white',
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: 'white',
+                                },
+                                '&.Mui-focused fieldset': {
+                                    borderColor: 'white',
+                                },
+                            },
+                        }}
                     />
                     <TextField
                         label="Third Name"
@@ -109,6 +164,25 @@ const Registration = () => {
                         onChange={handleChange}
                         fullWidth
                         margin="normal"
+                        InputProps={{
+                            style: { color: 'white', fontWeight: 'bold' },
+                        }}
+                        InputLabelProps={{
+                            style: { color: 'white', fontWeight: 'bold' },
+                        }}
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: 'white',
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: 'white',
+                                },
+                                '&.Mui-focused fieldset': {
+                                    borderColor: 'white',
+                                },
+                            },
+                        }}
                     />
                     <TextField
                         label="Email"
@@ -118,6 +192,25 @@ const Registration = () => {
                         fullWidth
                         margin="normal"
                         required
+                        InputProps={{
+                            style: { color: 'white', fontWeight: 'bold' },
+                        }}
+                        InputLabelProps={{
+                            style: { color: 'white', fontWeight: 'bold' },
+                        }}
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: 'white',
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: 'white',
+                                },
+                                '&.Mui-focused fieldset': {
+                                    borderColor: 'white',
+                                },
+                            },
+                        }}
                     />
                     <TextField
                         label="Password"
@@ -128,6 +221,25 @@ const Registration = () => {
                         fullWidth
                         margin="normal"
                         required
+                        InputProps={{
+                            style: { color: 'white', fontWeight: 'bold' },
+                        }}
+                        InputLabelProps={{
+                            style: { color: 'white', fontWeight: 'bold' },
+                        }}
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: 'white',
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: 'white',
+                                },
+                                '&.Mui-focused fieldset': {
+                                    borderColor: 'white',
+                                },
+                            },
+                        }}
                     />
                     <TextField
                         label="Confirm Password"
@@ -138,6 +250,25 @@ const Registration = () => {
                         fullWidth
                         margin="normal"
                         required
+                        InputProps={{
+                            style: { color: 'white', fontWeight: 'bold' },
+                        }}
+                        InputLabelProps={{
+                            style: { color: 'white', fontWeight: 'bold' },
+                        }}
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: 'white',
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: 'white',
+                                },
+                                '&.Mui-focused fieldset': {
+                                    borderColor: 'white',
+                                },
+                            },
+                        }}
                     />
                     <TextField
                         label="Main Address"
@@ -147,6 +278,25 @@ const Registration = () => {
                         fullWidth
                         margin="normal"
                         required
+                        InputProps={{
+                            style: { color: 'white', fontWeight: 'bold' },
+                        }}
+                        InputLabelProps={{
+                            style: { color: 'white', fontWeight: 'bold' },
+                        }}
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: 'white',
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: 'white',
+                                },
+                                '&.Mui-focused fieldset': {
+                                    borderColor: 'white',
+                                },
+                            },
+                        }}
                     />
                     <TextField
                         label="Age"
@@ -156,12 +306,44 @@ const Registration = () => {
                         onChange={handleChange}
                         fullWidth
                         margin="normal"
+                        InputProps={{
+                            style: { color: 'white', fontWeight: 'bold' },
+                        }}
+                        InputLabelProps={{
+                            style: { color: 'white', fontWeight: 'bold' },
+                        }}
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: 'white',
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: 'white',
+                                },
+                                '&.Mui-focused fieldset': {
+                                    borderColor: 'white',
+                                },
+                            },
+                        }}
                     />
                     <FormControl fullWidth margin="normal">
-                        <InputLabel>Role</InputLabel>
+                        <InputLabel style={{ color: 'white', fontWeight: 'bold' }}>Role</InputLabel>
                         <Select
                             value={user.roleName}
                             onChange={handleRoleChange}
+                            sx={{
+                                color: 'white',
+                                fontWeight: 'bold',
+                                '& .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: 'white',
+                                },
+                                '&:hover .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: 'white',
+                                },
+                                '&.Mui-focused .MuiOutlinedInput-notchedOutline': {
+                                    borderColor: 'white',
+                                },
+                            }}
                         >
                             <MenuItem value="USER">User</MenuItem>
                             <MenuItem value="ADMIN">Admin</MenuItem>

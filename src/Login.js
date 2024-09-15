@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Container, TextField, Button, Typography, Alert, Box } from '@mui/material';
 import { useNavigate, Link } from 'react-router-dom';
+import backgroundImage from './unibitLogo.jpg';
 
 const Login = () => {
     const [credentials, setCredentials] = useState({ username: '', password: '' });
@@ -36,7 +37,7 @@ const Login = () => {
             }
 
             if (!response.ok) {
-                throw new Error(data.message || 'Something went wrong');
+                throw new Error(data.message || 'Wrong username or password!');
             }
 
             // Assuming data is the token if not JSON
@@ -57,10 +58,15 @@ const Login = () => {
                 alignItems: 'center',
                 justifyContent: 'center',
                 height: '100vh',
+                backgroundImage: `url(${backgroundImage})`,
+                backgroundSize: 'cover',
+                backgroundPosition: 'center',
+                backgroundAttachment: 'fixed', // Ensures the background doesn't move on scroll
             }}
         >
             <Container maxWidth="xs">
-                <Typography variant="h4" gutterBottom>
+                {/* Заглавието "Login" с бял цвят */}
+                <Typography variant="h4" gutterBottom sx={{ color: 'white', fontWeight: 'bold' }}>
                     Login
                 </Typography>
                 <form onSubmit={handleSubmit}>
@@ -71,6 +77,32 @@ const Login = () => {
                         onChange={handleChange}
                         fullWidth
                         margin="normal"
+                        InputProps={{
+                            style: {
+                                color: 'white',
+                                fontWeight: 'bold',
+                                borderColor: 'white',
+                            },
+                        }}
+                        InputLabelProps={{
+                            style: {
+                                color: 'white',
+                                fontWeight: 'bold'
+                            },
+                        }}
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: 'white',
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: 'white',
+                                },
+                                '&.Mui-focused fieldset': {
+                                    borderColor: 'white',
+                                },
+                            },
+                        }}
                     />
                     <TextField
                         label="Password"
@@ -80,19 +112,53 @@ const Login = () => {
                         onChange={handleChange}
                         fullWidth
                         margin="normal"
+                        InputProps={{
+                            style: {
+                                color: 'white',
+                                fontWeight: 'bold',
+                                borderColor: 'white',
+                            },
+                        }}
+                        InputLabelProps={{
+                            style: {
+                                color: 'white',
+                                fontWeight: 'bold'
+                            },
+                        }}
+                        sx={{
+                            '& .MuiOutlinedInput-root': {
+                                '& fieldset': {
+                                    borderColor: 'white',
+                                },
+                                '&:hover fieldset': {
+                                    borderColor: 'white',
+                                },
+                                '&.Mui-focused fieldset': {
+                                    borderColor: 'white',
+                                },
+                            },
+                        }}
                     />
                     <Button type="submit" variant="contained" color="primary" fullWidth>
                         Login
                     </Button>
                 </form>
                 {error && <Alert severity="error" style={{ marginTop: '20px' }}>{error}</Alert>}
+
+                {/* Home бутон с лилав фон и бели букви */}
                 <Button
                     component={Link}
                     to="/"
-                    variant="outlined"
-                    color="secondary"
+                    variant="contained" // Променено от outlined на contained за попълване
                     fullWidth
-                    style={{ marginTop: '20px' }}
+                    sx={{
+                        marginTop: '20px',
+                        backgroundColor: '#6a0dad', // Лилав цвят за фона
+                        color: 'white', // Бели букви
+                        '&:hover': {
+                            backgroundColor: '#4b0082', // По-тъмен лилав при hover
+                        },
+                    }}
                 >
                     Home
                 </Button>
